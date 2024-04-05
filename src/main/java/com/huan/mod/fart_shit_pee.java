@@ -19,5 +19,6 @@ public class fart_shit_pee
     }
     public void setup(final FMLCommonSetupEvent event){
         LOGGER.info("hello~");
+        System.out.println();
     }
 }
