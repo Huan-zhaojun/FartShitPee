@@ -12,7 +12,7 @@ public class Hub extends AbstractGui {
     private final int height;
     private final Minecraft minecraft;
     private final ResourceLocation HUD = new ResourceLocation(fart_shit_pee.MOD_ID, "textures/gui/a.png");
-    private MatrixStack matrixStack;
+    private final MatrixStack matrixStack;
 
     public Hub(MatrixStack matrixStack) {
         this.width = Minecraft.getInstance().getMainWindow().getScaledWidth();
