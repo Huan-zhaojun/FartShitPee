@@ -22,8 +22,13 @@ public class Hub extends AbstractGui {
     }
 
     public void render() {
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        //RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
         this.minecraft.getTextureManager().bindTexture(HUD);
+
         blit(matrixStack, width / 2, height / 2, 0, 0, 32, 32, 32, 32);
+
+        RenderSystem.disableBlend();
     }
 }
