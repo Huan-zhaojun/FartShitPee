@@ -18,8 +18,6 @@ public class Hub extends AbstractGui {
     public Hub(MatrixStack matrixStack) {
         this.width = Minecraft.getInstance().getMainWindow().getScaledWidth();
         this.height = Minecraft.getInstance().getMainWindow().getScaledHeight();
-        System.out.println(width);
-        System.out.println(height);
         this.minecraft = Minecraft.getInstance();
         this.matrixStack = matrixStack;
     }
