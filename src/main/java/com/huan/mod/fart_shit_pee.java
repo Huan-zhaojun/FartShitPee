@@ -1,6 +1,7 @@
 package com.huan.mod;
 
 import com.huan.mod.capability.drainCapability;
+import com.huan.mod.network.Networking;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -48,6 +49,9 @@ public class fart_shit_pee {
                     },
                     ()-> null
             );
+
+            //注册网络包
+            Networking.registerMessage();
         });
     }
 }

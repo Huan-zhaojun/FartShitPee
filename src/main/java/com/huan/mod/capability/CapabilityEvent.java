@@ -1,14 +1,21 @@
 package com.huan.mod.capability;
 
 import com.huan.mod.fart_shit_pee;
+import com.huan.mod.network.Networking;
+import com.huan.mod.network.SendPack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 @Mod.EventBusSubscriber(modid = fart_shit_pee.MOD_ID)
 public class CapabilityEvent {
@@ -33,4 +40,28 @@ public class CapabilityEvent {
         }
     }
 
+    @SubscribeEvent
+    public static void tick(TickEvent.PlayerTickEvent event){
+        if (!event.player.world.isRemote){
+            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
+            LazyOptional<drainCapability> cap = player.getCapability(fart_shit_pee.Drain_Capability);
+            cap.ifPresent(c-> Networking.INSTANCE.send(PacketDistributor.PLAYER.with(()-> player)
+                    , new SendPack(c.urineLevel_Max,c.shitLevel_Max,c.urineLevel,c.shitLevel,c.flatusLevel,player.getUniqueID())));
+        }
+    }
+
+    /*@SubscribeEvent//玩家跳跃时给于能力加一分
+    public static void onJump(LivingEvent.LivingJumpEvent event){
+        if (event.getEntity() instanceof  PlayerEntity){
+            PlayerEntity player = (PlayerEntity) event.getEntity();
+            if (!player.world.isRemote){
+                LazyOptional<drainCapability> capability = player.getCapability(fart_shit_pee.Drain_Capability);
+                capability.ifPresent((c)->{
+                    c.setUrineLevel(c.urineLevel+1);
+                    player.sendMessage(new StringTextComponent(
+                            player.getName().getString()+"："+String.valueOf(c.urineLevel)),player.getUniqueID());
+                });
+            }
+        }
+    }*/
 }
