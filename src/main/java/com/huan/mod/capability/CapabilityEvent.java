@@ -50,18 +50,4 @@ public class CapabilityEvent {
         }
     }
 
-    /*@SubscribeEvent//玩家跳跃时给于能力加一分
-    public static void onJump(LivingEvent.LivingJumpEvent event){
-        if (event.getEntity() instanceof  PlayerEntity){
-            PlayerEntity player = (PlayerEntity) event.getEntity();
-            if (!player.world.isRemote){
-                LazyOptional<drainCapability> capability = player.getCapability(fart_shit_pee.Drain_Capability);
-                capability.ifPresent((c)->{
-                    c.setUrineLevel(c.urineLevel+1);
-                    player.sendMessage(new StringTextComponent(
-                            player.getName().getString()+"："+String.valueOf(c.urineLevel)),player.getUniqueID());
-                });
-            }
-        }
-    }*/
 }

@@ -2,6 +2,8 @@ package com.huan.mod.network;
 
 import com.huan.mod.capability.drainCapability;
 import com.huan.mod.fart_shit_pee;
+import com.huan.mod.gui.Hub;
+import com.huan.mod.gui.HudClientEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -41,7 +43,7 @@ public class SendPack {
         buf.writeInt(shitLevel_Max);
         buf.writeInt(urineLevel);
         buf.writeInt(shitLevel);
-        buf.writeInt(urineLevel_Max);
+        buf.writeInt(flatusLevel);
         buf.writeUniqueId(uuid);
     }
 
@@ -58,6 +60,11 @@ public class SendPack {
                         c.setUrineLevel(urineLevel);
                         c.setShitLevel(shitLevel);
                         c.setFlatusLevel(flatusLevel);
+                        HudClientEvent.urineLevel_Max = urineLevel_Max;
+                        HudClientEvent.shitLevel_Max = shitLevel_Max;
+                        HudClientEvent.urineLevel = urineLevel;
+                        HudClientEvent.shitLevel = shitLevel;
+                        HudClientEvent.flatusLevel = flatusLevel;
                     });
                 }
             }

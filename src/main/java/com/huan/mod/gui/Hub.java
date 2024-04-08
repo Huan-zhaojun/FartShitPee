@@ -22,7 +22,17 @@ public class Hub extends AbstractGui {
         this.matrixStack = matrixStack;
     }
 
-    public void render() {
+    public void render(int urineLevel_Max, int shitLevel_Max, int urineLevel, int shitLevel, int flatusLevel) {
+        //计算hub的百分比
+        double urine_percentage = (double) urineLevel / urineLevel_Max, shit_percentage = (double) shitLevel / shitLevel_Max;
+        int urine_y = 32 - (int) (23 * urine_percentage + 2), shit_y = 32 - (int) (30 * shit_percentage + 1);//hub绘制偏移量
+        //更接近直观的百分比hub显示
+        if (urine_percentage <= 0.0538 && urine_percentage > 0.01)
+            urine_y = 32 - (int) (7 * urine_percentage / 0.0538 + 2);
+        else if (urine_percentage <= 0.01 && urine_percentage > 0) urine_y = 32 - (1 + 2);//只要有值就显示1像素
+        else if (urine_percentage > 0.0538) urine_y = 32 - (int) (16 * (urine_percentage - 0.0538) / 0.9462 + 7 + 2);
+        if (shit_percentage < 0.035 && shit_percentage > 0) shit_y = 32 - (1 + 1);//只要有值就显示1像素
+
         //RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -31,13 +41,15 @@ public class Hub extends AbstractGui {
         int bladder_x = width / 2 - 125, bishop_y = height - 35;
         this.minecraft.getTextureManager().bindTexture(bladder_Hub);
         blit(matrixStack, bladder_x, bishop_y, 0, 0, 32, 32, 64, 32);
-        blit(matrixStack, bladder_x, bishop_y, 32, 0, 32, 32, 64, 32);
+        blit(matrixStack, bladder_x, bishop_y + urine_y, 32, urine_y,
+                32, 32 - urine_y, 64, 32);
 
         //绘制肠道
         int intestine_x = width / 2 + 95, intestine_y = height - 35;
         this.minecraft.getTextureManager().bindTexture(intestine_Hub);
         blit(matrixStack, intestine_x, intestine_y, 0, 0, 32, 32, 352, 32);
-        blit(matrixStack, intestine_x, intestine_y, 32, 0, 32, 32, 352, 32);
+        blit(matrixStack, intestine_x, intestine_y, 32 * (flatusLevel + 1), 0,
+                32, 32 - shit_y, 352, 32);
 
         RenderSystem.disableBlend();
     }
