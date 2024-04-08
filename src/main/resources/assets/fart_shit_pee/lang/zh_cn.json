@@ -1,0 +1,13 @@
+{
+  "language.region": "China",
+  "language.name": "Simplified Chinese",
+  "language.code": "zh_cn",
+
+  "death.attack.bladder1":"%1$s的膀胱爆炸了",
+  "death.attack.bladder2":"%1$s试图挑战膀胱的极限，结果爆炸了",
+  "death.attack.intestine1":"%1$s爆肛而亡",
+  "death.attack.intestine2":"%1$s试图挑战肛门的极限，结果爆炸了",
+  "death.attack.eatShit":"%1$s试图在吃屎，结果撑死了",
+  "death.attack.smellyShit":"%1$s被屎臭死了",
+  "death.attack.smellyShit.player":"%1$s被%2$s的屎臭死了"
+}

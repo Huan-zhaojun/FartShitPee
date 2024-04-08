@@ -4,8 +4,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class drainCapability implements INBTSerializable<CompoundNBT> {
-    public int urineLevel_Max = 100, shitLevel_Max = 100;
-    public int urineLevel = urineLevel_Max / 2, shitLevel = shitLevel_Max / 2;
+    public int urineLevel_Max = 50, shitLevel_Max = 50;
+    public int urineLevel = 0, shitLevel = 0;
     public int flatusLevel = 0;//屁的等级，10个状态，屁等级最高为9
 
     @Override
@@ -44,8 +44,11 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
         return urineLevel;
     }
 
-    public void setUrineLevel(int urineLevel) {
-        if (urineLevel >= 0 && urineLevel <= urineLevel_Max) this.urineLevel = urineLevel;
+    public boolean setUrineLevel(int urineLevel) {
+        if (urineLevel >= 0 && urineLevel <= urineLevel_Max) {
+            this.urineLevel = urineLevel;
+            return true;
+        } else return false;
     }
 
     public int getShitLevel_Max() {
@@ -61,15 +64,21 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
         return shitLevel;
     }
 
-    public void setShitLevel(int shitLevel) {
-        if (shitLevel >= 0 && shitLevel <= shitLevel_Max) this.shitLevel = shitLevel;
+    public boolean setShitLevel(int shitLevel) {
+        if (shitLevel >= 0 && shitLevel <= shitLevel_Max) {
+            this.shitLevel = shitLevel;
+            return true;
+        } else return false;
     }
 
     public int getFlatusLevel() {
         return flatusLevel;
     }
 
-    public void setFlatusLevel(int flatusLevel) {
-        if (flatusLevel >= 0 && flatusLevel <= 9) this.flatusLevel = flatusLevel;
+    public boolean setFlatusLevel(int flatusLevel) {
+        if (flatusLevel >= 0 && flatusLevel <= 9) {
+            this.flatusLevel = flatusLevel;
+            return true;
+        } else return false;
     }
 }

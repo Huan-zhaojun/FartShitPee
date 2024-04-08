@@ -1,0 +1,13 @@
+{
+  "language.name": "English",
+  "language.region": "United States",
+  "language.code": "en_us",
+
+  "death.attack.bladder1":"%1$s's bladder exploded",
+  "death.attack.bladder2":"%1$s tried to challenge the limits of bladder, but it exploded",
+  "death.attack.intestine1":"%1$s died from an anal explosion",
+  "death.attack.intestine2":"%1$s tried to challenge the limits of anus, but it exploded",
+  "death.attack.eatShit":"%1$s tried to eat shit, but it absolutely stuffed",
+  "death.attack.smellyShit":"%1$s died from stinks of shit",
+  "death.attack.smellyShit.player":"%1$s died from stinks of %1$s's shit"
+}
