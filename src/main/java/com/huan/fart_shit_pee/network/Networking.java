@@ -1,6 +1,6 @@
-package com.huan.mod.network;
+package com.huan.fart_shit_pee.network;
 
-import com.huan.mod.fart_shit_pee;
+import com.huan.fart_shit_pee.fart_shit_pee;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;

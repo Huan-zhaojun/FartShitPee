@@ -1,6 +1,6 @@
-package com.huan.mod.gui;
+package com.huan.fart_shit_pee.gui;
 
-import com.huan.mod.fart_shit_pee;
+import com.huan.fart_shit_pee.fart_shit_pee;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;

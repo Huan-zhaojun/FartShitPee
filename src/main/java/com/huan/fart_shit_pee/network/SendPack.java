@@ -1,13 +1,11 @@
-package com.huan.mod.network;
+package com.huan.fart_shit_pee.network;
 
-import com.huan.mod.capability.drainCapability;
-import com.huan.mod.fart_shit_pee;
-import com.huan.mod.gui.Hub;
-import com.huan.mod.gui.HudClientEvent;
+import com.huan.fart_shit_pee.capability.drainCapability;
+import com.huan.fart_shit_pee.fart_shit_pee;
+import com.huan.fart_shit_pee.gui.HudClientEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.FoodStats;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkEvent;
 

@@ -1,4 +1,4 @@
-package com.huan.mod.gui;
+package com.huan.fart_shit_pee.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
