@@ -1,6 +1,6 @@
-package com.huan.mod.capability;
+package com.huan.fart_shit_pee.capability;
 
-import com.huan.mod.fart_shit_pee;
+import com.huan.fart_shit_pee.fart_shit_pee;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;

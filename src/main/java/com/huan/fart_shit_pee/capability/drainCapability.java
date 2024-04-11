@@ -1,4 +1,4 @@
-package com.huan.mod.capability;
+package com.huan.fart_shit_pee.capability;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -6,7 +6,10 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class drainCapability implements INBTSerializable<CompoundNBT> {
     public int urineLevel_Max = 50, shitLevel_Max = 50;
     public int urineLevel = 0, shitLevel = 0;
-    public int flatusLevel = 0;//屁的等级，10个状态，屁等级最高为9
+    /**
+     * 屁的等级，10个状态，屁等级最高为9
+     */
+    public int flatusLevel = 0;
 
     @Override
     public CompoundNBT serializeNBT() {
