@@ -9,5 +9,11 @@
   "death.attack.intestine2":"%1$s试图挑战肛门的极限，结果爆炸了",
   "death.attack.eatShit":"%1$s试图在吃屎，结果撑死了",
   "death.attack.smellyShit":"%1$s被屎臭死了",
-  "death.attack.smellyShit.player":"%1$s被%2$s的屎臭死了"
+  "death.attack.smellyShit.player":"%1$s被%2$s的屎臭死了",
+
+  "item.fart_shit_pee.urine_fluid_bucket": "尿桶",
+  "block.fart_shit_pee.urine_fluid": "尿液方块",
+  "fluid.fart_shit_pee.urine_fluid": "尿液静态流体",
+  "fluid.fart_shit_pee.urine_fluid_flowing": "尿液流动流体",
+  "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "尿液方块实体"
 }

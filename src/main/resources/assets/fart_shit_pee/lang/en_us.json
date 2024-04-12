@@ -9,5 +9,11 @@
   "death.attack.intestine2":"%1$s tried to challenge the limits of anus, but it exploded",
   "death.attack.eatShit":"%1$s tried to eat shit, but it absolutely stuffed",
   "death.attack.smellyShit":"%1$s died from stinks of shit",
-  "death.attack.smellyShit.player":"%1$s died from stinks of %1$s's shit"
+  "death.attack.smellyShit.player":"%1$s died from stinks of %1$s's shit",
+
+  "item.fart_shit_pee.urine_fluid_bucket": "urine bucket",
+  "block.fart_shit_pee.urine_fluid": "urine block",
+  "fluid.fart_shit_pee.urine_fluid": "still urine fluid",
+  "fluid.fart_shit_pee.urine_fluid_flowing": "flowing urine fluid",
+  "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "urine tileEntity"
 }

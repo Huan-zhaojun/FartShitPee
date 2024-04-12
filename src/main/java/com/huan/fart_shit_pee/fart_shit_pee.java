@@ -1,7 +1,11 @@
 package com.huan.fart_shit_pee;
 
+import com.huan.fart_shit_pee.TileEntity.TileEntityTypeRegistry;
 import com.huan.fart_shit_pee.capability.CapabilityEvent;
 import com.huan.fart_shit_pee.capability.drainCapability;
+import com.huan.fart_shit_pee.common.Block.blockRegistry;
+import com.huan.fart_shit_pee.common.Fluid.FluidRegistry;
+import com.huan.fart_shit_pee.common.Item.itemRegistry;
 import com.huan.fart_shit_pee.network.Networking;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -19,7 +23,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,10 @@ public class fart_shit_pee {
 
     public fart_shit_pee() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        itemRegistry.ITEMS.register(modEventBus);
+        blockRegistry.BLOCKS.register(modEventBus);
+        FluidRegistry.FLUIDS.register(modEventBus);
+        TileEntityTypeRegistry.TILE_ENTITIES.register(modEventBus);
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::receive);
 
