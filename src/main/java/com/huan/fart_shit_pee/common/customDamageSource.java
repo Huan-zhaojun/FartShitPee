@@ -1,4 +1,4 @@
-package com.huan.fart_shit_pee;
+package com.huan.fart_shit_pee.common;
 
 import net.minecraft.util.DamageSource;
 

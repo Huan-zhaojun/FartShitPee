@@ -1,9 +1,10 @@
 package com.huan.fart_shit_pee.capability;
 
-import com.huan.fart_shit_pee.customDamageSource;
+import com.huan.fart_shit_pee.common.customDamageSource;
 import com.huan.fart_shit_pee.fart_shit_pee;
-import com.huan.fart_shit_pee.network.Networking;
-import com.huan.fart_shit_pee.network.SendPack;
+import com.huan.fart_shit_pee.network.Client.peeEnd_SendPack;
+import com.huan.fart_shit_pee.network.Network;
+import com.huan.fart_shit_pee.network.Client.hubSendPack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -15,16 +16,12 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = fart_shit_pee.MOD_ID)
 public class CapabilityEvent {
@@ -58,6 +55,7 @@ public class CapabilityEvent {
     public static long lastTime_intestine = System.currentTimeMillis();
     public static long lastTime_bladder = System.currentTimeMillis();
     public static long lastTime_urine = System.currentTimeMillis();
+    public static int pee_tickCount = 0;
 
     @SubscribeEvent//给玩家注册上能力
     public static void onAttachCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
@@ -77,31 +75,54 @@ public class CapabilityEvent {
                     originalCap.ifPresent((oldCap) -> cap.deserializeNBT(oldCap.serializeNBT()));
                 });
             }
+        } else {
+            //终止绘制
+            Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new peeEnd_SendPack());
         }
     }
 
     @SubscribeEvent
     public static void tick(TickEvent.PlayerTickEvent event) {
-        if (!event.player.world.isRemote) {
+        if (!event.player.world.isRemote ) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             LazyOptional<drainCapability> cap = player.getCapability(fart_shit_pee.Drain_Capability);
             cap.ifPresent(c -> {
                 //超出上限持续扣血
-                if (c.shitLevel >= c.shitLevel_Max && System.currentTimeMillis() - lastTime_intestine >= 1500) {
-                    player.attackEntityFrom(customDamageSource.intestineDamageSource1, 1.5f);
+                if (c.shitLevel >= c.shitLevel_Max && System.currentTimeMillis() - lastTime_intestine >= 1000) {
+                    player.attackEntityFrom(customDamageSource.intestineDamageSource1, 2f);
                     lastTime_intestine = System.currentTimeMillis();
                 }
-                if (c.urineLevel >= c.urineLevel_Max && System.currentTimeMillis() - lastTime_bladder >= 1500) {
-                    player.attackEntityFrom(customDamageSource.bladderDamageSource1, 1.5f);
+                if (c.urineLevel >= c.urineLevel_Max && System.currentTimeMillis() - lastTime_bladder >= 1000) {
+                    player.attackEntityFrom(customDamageSource.bladderDamageSource1, 2f);
                     lastTime_bladder = System.currentTimeMillis();
                 }
                 //因为人体体循环，随着时间缓慢增加尿液
-                if (c.urineLevel < c.urineLevel_Max && System.currentTimeMillis() - lastTime_urine >= 60 * 1000) {
-                    c.setUrineLevel(c.urineLevel + 1);
+                if (c.urineLevel < c.urineLevel_Max && System.currentTimeMillis() - lastTime_urine >= (60 * 1000)) {
+                    c.setUrineLevel(Math.min((c.urineLevel + 1), c.urineLevel_Max));
+                    lastTime_urine = System.currentTimeMillis();
                 }
+
+                //撒尿
+                if (c.pee && pee_tickCount >= 10) {
+                    c.setUrineLevel(Math.max((c.urineLevel - 1), 0));
+                    if (c.urineLevel <= 0) {
+                        c.pee = false;
+                        //终止绘制
+                        Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new peeEnd_SendPack());
+                    }
+                    pee_tickCount = 0;
+                } else if (c.pee) pee_tickCount++;
+
                 //发包同步数据
-                Networking.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player)
-                        , new SendPack(c.urineLevel_Max, c.shitLevel_Max, c.urineLevel, c.shitLevel, c.flatusLevel, player.getUniqueID()));
+                Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player)
+                        , new hubSendPack(c.urineLevel_Max, c.shitLevel_Max, c.urineLevel, c.shitLevel, c.flatusLevel, player.getUniqueID(), c.pee));
+
+                if (event.player.isCreative()) {//创造模式停止尿尿
+                    c.pee = false;
+                    pee_tickCount = 0;
+                    //终止绘制
+                    Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new peeEnd_SendPack());
+                }
             });
         }
     }
@@ -119,7 +140,6 @@ public class CapabilityEvent {
                 int urineLevel_Max = c.urineLevel_Max, shitLevel_Max = c.shitLevel_Max;
                 int flatusLevel = c.flatusLevel;
                 int hunger = items_shit.getOrDefault(item, 0);
-                ;
                 if (food != null) hunger = food.getHealing();
                 if (item.equals(eatable_dirt)) hunger = shitLevel_Max / 5;//吃土塞爆肠道
 

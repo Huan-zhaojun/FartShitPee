@@ -6,7 +6,8 @@ import com.huan.fart_shit_pee.capability.drainCapability;
 import com.huan.fart_shit_pee.common.Block.blockRegistry;
 import com.huan.fart_shit_pee.common.Fluid.FluidRegistry;
 import com.huan.fart_shit_pee.common.Item.itemRegistry;
-import com.huan.fart_shit_pee.network.Networking;
+import com.huan.fart_shit_pee.common.particle.ParticleRegistry;
+import com.huan.fart_shit_pee.network.Network;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -40,6 +41,7 @@ public class fart_shit_pee {
         itemRegistry.ITEMS.register(modEventBus);
         blockRegistry.BLOCKS.register(modEventBus);
         FluidRegistry.FLUIDS.register(modEventBus);
+        ParticleRegistry.PARTICLE_TYPES.register(modEventBus);
         TileEntityTypeRegistry.TILE_ENTITIES.register(modEventBus);
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::receive);
@@ -68,18 +70,19 @@ public class fart_shit_pee {
         );
 
         //注册网络包
-        Networking.registerMessage();
+        Network.registerMessage();
 
         event.enqueueWork(() -> {
         });//渲染线程任务
     }
 
     /**
-     *  在模组加载时接受信息<br>
-     *  发送消息参数：<br>
-     *  “method”=“{@link fart_shit_pee#MOD_ID}:start”<br>
-     *  “Supplier<?> thing”接受字符串执行相应的操作
-     *  @see InterModComms#sendTo(String, String, Supplier) 
+     * 在模组加载时接受信息<br>
+     * 发送消息参数：<br>
+     * “method”=“{@link fart_shit_pee#MOD_ID}:start”<br>
+     * “Supplier<?> thing”接受字符串执行相应的操作
+     *
+     * @see InterModComms#sendTo(String, String, Supplier)
      */
     public void receive(InterModProcessEvent event) {
         String function = "null";

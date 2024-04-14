@@ -15,5 +15,8 @@
   "block.fart_shit_pee.urine_fluid": "urine block",
   "fluid.fart_shit_pee.urine_fluid": "still urine fluid",
   "fluid.fart_shit_pee.urine_fluid_flowing": "flowing urine fluid",
-  "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "urine tileEntity"
+  "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "urine tileEntity",
+
+  "key.category.fart_shit_pee": "Fart Shit Pee",
+  "key.pee": "Pee/Poop"
 }

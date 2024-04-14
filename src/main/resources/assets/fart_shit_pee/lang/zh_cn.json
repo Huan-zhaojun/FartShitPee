@@ -15,5 +15,8 @@
   "block.fart_shit_pee.urine_fluid": "尿液方块",
   "fluid.fart_shit_pee.urine_fluid": "尿液静态流体",
   "fluid.fart_shit_pee.urine_fluid_flowing": "尿液流动流体",
-  "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "尿液方块实体"
+  "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "尿液方块实体",
+
+  "key.category.fart_shit_pee": "屁屎尿",
+  "key.pee": "撒尿/拉屎"
 }

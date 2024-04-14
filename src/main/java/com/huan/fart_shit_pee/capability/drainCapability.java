@@ -6,6 +6,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class drainCapability implements INBTSerializable<CompoundNBT> {
     public int urineLevel_Max = 50, shitLevel_Max = 50;
     public int urineLevel = 0, shitLevel = 0;
+    public boolean pee = false;//是否撒尿
     /**
      * 屁的等级，10个状态，屁等级最高为9
      */
@@ -19,6 +20,7 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
         nbt.putInt("urineLevel", urineLevel);
         nbt.putInt("shitLevel", shitLevel);
         nbt.putInt("flatusLevel", flatusLevel);
+        nbt.putBoolean("pee", pee);
         return nbt;
     }
 
@@ -29,6 +31,7 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
         this.urineLevel = nbt.getInt("urineLevel");
         this.shitLevel = nbt.getInt("shitLevel");
         this.flatusLevel = nbt.getInt("flatusLevel");
+        this.pee = nbt.getBoolean("pee");
     }
 
     public drainCapability() {
@@ -83,5 +86,13 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
             this.flatusLevel = flatusLevel;
             return true;
         } else return false;
+    }
+
+    public boolean isPee() {
+        return pee;
+    }
+
+    public void setPee(boolean pee) {
+        this.pee = pee;
     }
 }
