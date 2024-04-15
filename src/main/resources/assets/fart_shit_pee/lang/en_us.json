@@ -12,9 +12,13 @@
   "death.attack.smellyShit.player":"%1$s died from stinks of %1$s's shit",
 
   "item.fart_shit_pee.urine_fluid_bucket": "urine bucket",
+
   "block.fart_shit_pee.urine_fluid": "urine block",
+  "block.fart_shit_pee.shit_block": "shit",
+
   "fluid.fart_shit_pee.urine_fluid": "still urine fluid",
   "fluid.fart_shit_pee.urine_fluid_flowing": "flowing urine fluid",
+
   "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "urine tileEntity",
 
   "key.category.fart_shit_pee": "Fart Shit Pee",

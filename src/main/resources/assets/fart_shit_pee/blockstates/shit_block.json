@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "size=1": { "model": "fart_shit_pee:block/shit_block_small" },
+    "size=2": { "model": "fart_shit_pee:block/shit_block_medium" },
+    "size=3": { "model": "fart_shit_pee:block/shit_block_large" }
+  }
+}

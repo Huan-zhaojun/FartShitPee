@@ -32,4 +32,6 @@ public class blockRegistry {
                     return new urineFluidTileEntity();
                 }
             });
+
+    public static RegistryObject<Block> shitBlock = BLOCKS.register("shit_block",shitBlock::new);
 }

@@ -28,13 +28,13 @@ public class urineFluidTileEntity extends TileEntity implements ITickableTileEnt
 
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
-        nbt.putInt("urineFluid_tickCount", tickCount);
+        tickCount = nbt.getInt("urineFluid_tickCount");
         super.read(state, nbt);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        tickCount = compound.getInt("urineFluid_tickCount");
+        compound.putInt("urineFluid_tickCount", tickCount);
         return super.write(compound);
     }
 
