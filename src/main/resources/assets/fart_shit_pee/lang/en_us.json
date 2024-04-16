@@ -22,5 +22,8 @@
   "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "urine tileEntity",
 
   "key.category.fart_shit_pee": "Fart Shit Pee",
-  "key.pee": "Pee/Poop"
+  "key.pee": "Pee/Poop",
+  "fart.pee": "Fart",
+
+  "sound.fart_shit_pee.fart": "fart"
 }

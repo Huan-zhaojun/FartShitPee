@@ -1,0 +1,11 @@
+{
+  "fart": {
+    "subtitle": "sound.fart_shit_pee.fart",
+    "replace": "true",
+    "sounds": [{
+      "name": "fart_shit_pee:fart",
+      "stream": true
+    }
+    ]
+  }
+}

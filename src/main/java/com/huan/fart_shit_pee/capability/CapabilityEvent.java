@@ -97,7 +97,7 @@ public class CapabilityEvent {
                     lastTime_bladder = System.currentTimeMillis();
                 }
                 //因为人体体循环，随着时间缓慢增加尿液
-                if (c.urineLevel < c.urineLevel_Max && System.currentTimeMillis() - lastTime_urine >= (60 * 1000)) {
+                if (c.urineLevel < c.urineLevel_Max && System.currentTimeMillis() - lastTime_urine >= (60 * 1000) && !player.isCreative()) {
                     c.setUrineLevel(Math.min((c.urineLevel + 1), c.urineLevel_Max));
                     lastTime_urine = System.currentTimeMillis();
                 }

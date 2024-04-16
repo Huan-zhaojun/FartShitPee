@@ -6,6 +6,7 @@ import com.huan.fart_shit_pee.capability.drainCapability;
 import com.huan.fart_shit_pee.common.Block.blockRegistry;
 import com.huan.fart_shit_pee.common.Fluid.FluidRegistry;
 import com.huan.fart_shit_pee.common.Item.itemRegistry;
+import com.huan.fart_shit_pee.common.SoundEventRegistry;
 import com.huan.fart_shit_pee.common.particle.ParticleRegistry;
 import com.huan.fart_shit_pee.network.Network;
 import net.minecraft.nbt.INBT;
@@ -43,6 +44,7 @@ public class fart_shit_pee {
         FluidRegistry.FLUIDS.register(modEventBus);
         ParticleRegistry.PARTICLE_TYPES.register(modEventBus);
         TileEntityTypeRegistry.TILE_ENTITIES.register(modEventBus);
+        SoundEventRegistry.SOUNDS.register(modEventBus);
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::receive);
 

@@ -22,5 +22,8 @@
   "block_entity_type.fart_shit_pee.urine_fluid_tileentity": "尿液方块实体",
 
   "key.category.fart_shit_pee": "屁屎尿",
-  "key.pee": "撒尿/拉屎"
+  "key.pee": "撒尿/拉屎",
+  "fart.pee": "放屁",
+
+  "sound.fart_shit_pee.fart": "放屁"
 }
