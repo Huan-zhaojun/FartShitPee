@@ -1,6 +1,6 @@
 package com.huan.fart_shit_pee.common.Fluid;
 
-import com.huan.fart_shit_pee.TileEntity.TileEntityTypeRegistry;
+import com.huan.fart_shit_pee.common.TileEntity.TileEntityTypeRegistry;
 import com.huan.fart_shit_pee.common.Block.blockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

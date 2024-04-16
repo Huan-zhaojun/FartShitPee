@@ -1,6 +1,6 @@
 package com.huan.fart_shit_pee.common.Block;
 
-import com.huan.fart_shit_pee.TileEntity.TileEntityTypeRegistry;
+import com.huan.fart_shit_pee.common.TileEntity.TileEntityTypeRegistry;
 import com.huan.fart_shit_pee.common.customDamageSource;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;

@@ -7,6 +7,7 @@ import com.huan.fart_shit_pee.network.Client.peeEnd_SendPack;
 import com.huan.fart_shit_pee.network.Client.urine_lineSendPack;
 import com.huan.fart_shit_pee.network.Server.drainSendPack;
 import com.huan.fart_shit_pee.network.Server.fartSendPack;
+import com.huan.fart_shit_pee.network.Server.upDown_urineSendPack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -29,6 +30,7 @@ public class Network {
         INSTANCE.registerMessage(nextID(), urine_lineSendPack.class, urine_lineSendPack::toBytes, urine_lineSendPack::new, urine_lineSendPack::handler);
         INSTANCE.registerMessage(nextID(), peeEnd_SendPack.class, peeEnd_SendPack::toBytes, peeEnd_SendPack::new, peeEnd_SendPack::handler);
         INSTANCE.registerMessage(nextID(), fartSendPack.class, fartSendPack::toBytes, fartSendPack::new, fartSendPack::handler);
+        INSTANCE.registerMessage(nextID(), upDown_urineSendPack.class, upDown_urineSendPack::toBytes, upDown_urineSendPack::new, upDown_urineSendPack::handler);
         INSTANCE.registerMessage(nextID(), entityMotionSendPack.class, entityMotionSendPack::toBytes, entityMotionSendPack::new, entityMotionSendPack::handler);
     }
 }

@@ -1,6 +1,7 @@
 package com.huan.fart_shit_pee;
 
-import com.huan.fart_shit_pee.TileEntity.TileEntityTypeRegistry;
+import com.huan.fart_shit_pee.api.Config;
+import com.huan.fart_shit_pee.common.TileEntity.TileEntityTypeRegistry;
 import com.huan.fart_shit_pee.capability.CapabilityEvent;
 import com.huan.fart_shit_pee.capability.drainCapability;
 import com.huan.fart_shit_pee.common.Block.blockRegistry;
@@ -17,7 +18,9 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -47,7 +50,7 @@ public class fart_shit_pee {
         SoundEventRegistry.SOUNDS.register(modEventBus);
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::receive);
-
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
     }
 
     public void setup(final FMLCommonSetupEvent event) {

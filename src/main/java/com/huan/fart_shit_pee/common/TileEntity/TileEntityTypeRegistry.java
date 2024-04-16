@@ -1,4 +1,4 @@
-package com.huan.fart_shit_pee.TileEntity;
+package com.huan.fart_shit_pee.common.TileEntity;
 
 import com.huan.fart_shit_pee.common.Block.blockRegistry;
 import com.huan.fart_shit_pee.common.Block.shitTileEntity;

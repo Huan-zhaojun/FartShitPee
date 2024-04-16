@@ -1,5 +1,6 @@
 package com.huan.fart_shit_pee.capability;
 
+import com.huan.fart_shit_pee.api.Config;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -7,6 +8,7 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
     public int urineLevel_Max = 50, shitLevel_Max = 50;
     public int urineLevel = 0, shitLevel = 0;
     public boolean pee = false;//是否撒尿
+    public double a = 0, b = 0;//尿液抛物线参数
     /**
      * 屁的等级，10个状态，屁等级最高为9
      */
@@ -21,6 +23,8 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
         nbt.putInt("shitLevel", shitLevel);
         nbt.putInt("flatusLevel", flatusLevel);
         nbt.putBoolean("pee", pee);
+        nbt.putDouble("a", a);
+        nbt.putDouble("b", b);
         return nbt;
     }
 
@@ -32,6 +36,8 @@ public class drainCapability implements INBTSerializable<CompoundNBT> {
         this.shitLevel = nbt.getInt("shitLevel");
         this.flatusLevel = nbt.getInt("flatusLevel");
         this.pee = nbt.getBoolean("pee");
+        this.a = nbt.getDouble("a");
+        this.b = nbt.getDouble("b");
     }
 
     public drainCapability() {

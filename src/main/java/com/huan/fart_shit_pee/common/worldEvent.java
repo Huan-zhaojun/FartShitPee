@@ -1,5 +1,6 @@
 package com.huan.fart_shit_pee.common;
 
+import com.huan.fart_shit_pee.api.Config;
 import com.huan.fart_shit_pee.common.Block.blockRegistry;
 import com.huan.fart_shit_pee.common.Fluid.FluidRegistry;
 import com.huan.fart_shit_pee.fart_shit_pee;
@@ -8,6 +9,7 @@ import com.huan.fart_shit_pee.network.Network;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -42,7 +44,14 @@ public class worldEvent {
                         Vector3d playerVec = player.getPositionVec().add(0, 0.65, 0);
                         float yaw = player.rotationYaw, pitch = player.rotationPitch;
                         float radianYaw = (float) ((yaw * Math.PI) / 180);//角度值转弧度值
-                        double a = 0.05, b = 2;//抛物线公式参数
+                        double a = Config.a_default.get(), b = Config.b_default.get();//抛物线公式参数
+                        if (c.a == 0 || c.b == 0) {
+                            c.a = a;
+                            c.b = b;
+                        } else {
+                            a = c.a;
+                            b = c.b;
+                        }
                         double leftPoint = parabolaX(a, b);//抛物线左零点
 
                         //浅度检测
@@ -53,7 +62,9 @@ public class worldEvent {
                             double X = (-(x - leftPoint) * Math.sin(radianYaw)) + playerVec.x;
                             double Z = ((x - leftPoint) * Math.cos(radianYaw)) + playerVec.z;
                             if (!world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(Blocks.AIR) &&
-                                    !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(blockRegistry.urineFluid.get())) {
+                                    !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(blockRegistry.urineFluid.get()) &&
+                                    !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(Blocks.WATER.getBlock()) &&
+                                    !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(Blocks.LAVA.getBlock())) {
                                 xEnd = x;
                                 break;
                             } else xFrom = x;
@@ -76,7 +87,9 @@ public class worldEvent {
                             double Z = ((x - leftPoint) * Math.cos(radianYaw)) + playerVec.z;
                             if (x >= xFrom & x <= xEnd) {//只对大概有方块阻挡的范围进行检测
                                 if (!world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(Blocks.AIR) &&
-                                        !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(blockRegistry.urineFluid.get())) {
+                                        !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(blockRegistry.urineFluid.get()) &&
+                                        !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(Blocks.WATER.getBlock()) &&
+                                        !world.getBlockState(new BlockPos(X, Y, Z)).getBlock().equals(Blocks.LAVA.getBlock())) {
                                     endx = x;//记录最后有方块时的抛物线x点
 
                                     if (lastVec == playerVec) break;

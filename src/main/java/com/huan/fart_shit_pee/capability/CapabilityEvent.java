@@ -103,7 +103,7 @@ public class CapabilityEvent {
                 }
 
                 //撒尿
-                if (c.pee && pee_tickCount >= 10) {
+                if (c.pee && pee_tickCount >= 100) {
                     c.setUrineLevel(Math.max((c.urineLevel - 1), 0));
                     if (c.urineLevel <= 0) {
                         c.pee = false;

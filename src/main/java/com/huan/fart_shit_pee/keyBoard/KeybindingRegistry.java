@@ -10,6 +10,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class KeybindingRegistry {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> ClientRegistry.registerKeyBinding(KeyBoardInput.pee_KEY));
+        event.enqueueWork(() -> {
+            ClientRegistry.registerKeyBinding(KeyBoardInput.pee_KEY);
+            ClientRegistry.registerKeyBinding(KeyBoardInput.fart_KEY);
+            ClientRegistry.registerKeyBinding(KeyBoardInput.up_KEY);
+            ClientRegistry.registerKeyBinding(KeyBoardInput.down_KEY);
+        });
     }
 }
