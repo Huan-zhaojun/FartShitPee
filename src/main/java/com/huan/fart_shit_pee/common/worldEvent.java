@@ -7,9 +7,12 @@ import com.huan.fart_shit_pee.fart_shit_pee;
 import com.huan.fart_shit_pee.network.Client.urine_lineSendPack;
 import com.huan.fart_shit_pee.network.Network;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -19,7 +22,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = fart_shit_pee.MOD_ID)
 public class worldEvent {
@@ -74,7 +79,11 @@ public class worldEvent {
                             double Y = parabolaY(a, b, x) + playerVec.y;
                             double X = (-(x - leftPoint) * Math.sin(radianYaw)) + playerVec.x;
                             double Z = ((x - leftPoint) * Math.cos(radianYaw)) + playerVec.z;
-
+                            List<Entity> entityList = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(new BlockPos(X, Y, Z)).grow(1));
+                            for (Entity entity : entityList) {
+                                entity.attackEntityFrom(DamageSource.IN_WALL,2f);
+                                entity.setMotion(-Math.sin(radianYaw) * 3, 1, Math.cos(radianYaw) * 3);
+                            }
                         }
 
                         //深度检测
@@ -109,7 +118,7 @@ public class worldEvent {
                             endx = part < 1.0 ? endx = x : endx;
                         }
 
-                        Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player),
+                        Network.INSTANCE.send(PacketDistributor.ALL.noArg(),
                                 new urine_lineSendPack(a, b, playerVec, radianYaw, endx));
                     } else {
                         list.put(player.getUniqueID(), 0.0);

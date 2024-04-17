@@ -27,5 +27,13 @@
   "up.pee": "Up urine trajectory",
   "down.pee": "Down urine trajectory",
 
-  "sound.fart_shit_pee.fart": "fart"
+  "sound.fart_shit_pee.fart": "fart",
+
+  "commands.fsp.setUrineLevel_Max": "Successfully set the maximum urine value",
+  "commands.fsp.setUrineLevel": "Successfully set urine value",
+  "commands.fsp.setShitLevel_Max": "Successfully set the maximum shit value",
+  "commands.fsp.setShitLevel": "Successfully set shit value",
+  "commands.fsp.setFlatusLevel": "Successfully set flatus value",
+  "commands.fsp.setPee": "Successfully set whether to pee",
+  "commands.fsp.setParabola": "Successfully set up a parabolic trajectory for urine"
 }

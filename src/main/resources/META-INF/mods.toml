@@ -34,7 +34,8 @@ credits="焕昭君" #optional
 authors="焕昭君" #optional
 # The description text for the fart_shit_pee (multi line!) (#mandatory)
 description='''
-
+增加排泄的玩法，现在玩家需要撒尿、拉屎、放屁了。
+Add excretion gameplay , now players need to pee, shit, and fart.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.fart_shit_pee]] #optional

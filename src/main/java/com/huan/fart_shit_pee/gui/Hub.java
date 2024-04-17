@@ -1,5 +1,6 @@
 package com.huan.fart_shit_pee.gui;
 
+import com.huan.fart_shit_pee.api.Config;
 import com.huan.fart_shit_pee.fart_shit_pee;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -38,14 +39,16 @@ public class Hub extends AbstractGui {
         RenderSystem.defaultBlendFunc();
 
         //绘制膀胱
-        int bladder_x = width / 2 - 125, bishop_y = height - 35;
+        //int bladder_x = width / 2 - 125, bladder_y = height - 35;
+        int bladder_x = width / 2 + Config.bladder_xOffset.get(), bladder_y = height + Config.bladder_yOffset.get();
         this.minecraft.getTextureManager().bindTexture(bladder_Hub);
-        blit(matrixStack, bladder_x, bishop_y, 0, 0, 32, 32, 64, 32);
-        blit(matrixStack, bladder_x, bishop_y + urine_y, 32, urine_y,
+        blit(matrixStack, bladder_x, bladder_y, 0, 0, 32, 32, 64, 32);
+        blit(matrixStack, bladder_x, bladder_y + urine_y, 32, urine_y,
                 32, 32 - urine_y, 64, 32);
 
         //绘制肠道
-        int intestine_x = width / 2 + 95, intestine_y = height - 35;
+        //int intestine_x = width / 2 + 95, intestine_y = height - 35;
+        int intestine_x = width / 2 + Config.intestine_xOffset.get(), intestine_y = height + Config.intestine_yOffset.get();
         this.minecraft.getTextureManager().bindTexture(intestine_Hub);
         blit(matrixStack, intestine_x, intestine_y, 0, 0, 32, 32, 352, 32);
         blit(matrixStack, intestine_x, intestine_y, 32 * (flatusLevel + 1), 0,

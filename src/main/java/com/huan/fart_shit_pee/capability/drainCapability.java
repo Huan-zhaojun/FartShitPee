@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class drainCapability implements INBTSerializable<CompoundNBT> {
-    public int urineLevel_Max = 50, shitLevel_Max = 50;
+    public int urineLevel_Max = Config.urineLevel_Max_default.get(), shitLevel_Max = Config.shitLevel_Max_default.get();
     public int urineLevel = 0, shitLevel = 0;
     public boolean pee = false;//是否撒尿
     public double a = 0, b = 0;//尿液抛物线参数

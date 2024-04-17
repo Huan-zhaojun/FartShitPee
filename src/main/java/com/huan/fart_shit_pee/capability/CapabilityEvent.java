@@ -1,5 +1,6 @@
 package com.huan.fart_shit_pee.capability;
 
+import com.huan.fart_shit_pee.api.Config;
 import com.huan.fart_shit_pee.common.customDamageSource;
 import com.huan.fart_shit_pee.fart_shit_pee;
 import com.huan.fart_shit_pee.network.Client.peeEnd_SendPack;
@@ -77,38 +78,38 @@ public class CapabilityEvent {
             }
         } else {
             //终止绘制
-            Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new peeEnd_SendPack());
+            Network.INSTANCE.send(PacketDistributor.ALL.noArg(), new peeEnd_SendPack());
         }
     }
 
     @SubscribeEvent
     public static void tick(TickEvent.PlayerTickEvent event) {
-        if (!event.player.world.isRemote ) {
+        if (!event.player.world.isRemote) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             LazyOptional<drainCapability> cap = player.getCapability(fart_shit_pee.Drain_Capability);
             cap.ifPresent(c -> {
                 //超出上限持续扣血
-                if (c.shitLevel >= c.shitLevel_Max && System.currentTimeMillis() - lastTime_intestine >= 1000) {
-                    player.attackEntityFrom(customDamageSource.intestineDamageSource1, 2f);
+                if (c.shitLevel >= c.shitLevel_Max && System.currentTimeMillis() - lastTime_intestine >= Config.lastTime.get()) {
+                    player.attackEntityFrom(customDamageSource.intestineDamageSource1, Config.drain_damage.get().floatValue());
                     lastTime_intestine = System.currentTimeMillis();
                 }
-                if (c.urineLevel >= c.urineLevel_Max && System.currentTimeMillis() - lastTime_bladder >= 1000) {
-                    player.attackEntityFrom(customDamageSource.bladderDamageSource1, 2f);
+                if (c.urineLevel >= c.urineLevel_Max && System.currentTimeMillis() - lastTime_bladder >= Config.lastTime.get()) {
+                    player.attackEntityFrom(customDamageSource.bladderDamageSource1, Config.drain_damage.get().floatValue());
                     lastTime_bladder = System.currentTimeMillis();
                 }
                 //因为人体体循环，随着时间缓慢增加尿液
-                if (c.urineLevel < c.urineLevel_Max && System.currentTimeMillis() - lastTime_urine >= (60 * 1000) && !player.isCreative()) {
+                if (c.urineLevel < c.urineLevel_Max && System.currentTimeMillis() - lastTime_urine >= (60 * 1000) && !player.isCreative() && !player.isSpectator()) {
                     c.setUrineLevel(Math.min((c.urineLevel + 1), c.urineLevel_Max));
                     lastTime_urine = System.currentTimeMillis();
                 }
 
                 //撒尿
-                if (c.pee && pee_tickCount >= 100) {
-                    c.setUrineLevel(Math.max((c.urineLevel - 1), 0));
+                if (c.pee && pee_tickCount >= Config.pee_tick.get()) {
+                    c.setUrineLevel(Math.max((c.urineLevel - Config.pee_value.get()), 0));
                     if (c.urineLevel <= 0) {
                         c.pee = false;
                         //终止绘制
-                        Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new peeEnd_SendPack());
+                        Network.INSTANCE.send(PacketDistributor.ALL.noArg(), new peeEnd_SendPack());
                     }
                     pee_tickCount = 0;
                 } else if (c.pee) pee_tickCount++;
@@ -117,11 +118,11 @@ public class CapabilityEvent {
                 Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player)
                         , new hubSendPack(c.urineLevel_Max, c.shitLevel_Max, c.urineLevel, c.shitLevel, c.flatusLevel, player.getUniqueID(), c.pee));
 
-                if (event.player.isCreative()) {//创造模式停止尿尿
+                if (event.player.isCreative() && event.player.isSpectator()) {//创造模式停止尿尿
                     c.pee = false;
                     pee_tickCount = 0;
                     //终止绘制
-                    Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new peeEnd_SendPack());
+                    Network.INSTANCE.send(PacketDistributor.ALL.noArg(), new peeEnd_SendPack());
                 }
             });
         }

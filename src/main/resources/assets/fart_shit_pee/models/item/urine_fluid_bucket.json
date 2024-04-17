@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "fart_shit_pee:item/urine_fluid_bucket"
+  }
+}

@@ -35,7 +35,7 @@ public class fartSendPack implements IModPack {
         NetworkEvent.Context context = ctx.get();
         context.enqueueWork(() -> {
             ServerPlayerEntity player = context.getSender();
-            if (player != null && !player.world.isRemote) {
+            if (player != null && !player.world.isRemote && !player.isSpectator()) {
                 World world = player.world;
                 Vector3d vector3d = player.getMotion();
                 int[] flatus = {1};

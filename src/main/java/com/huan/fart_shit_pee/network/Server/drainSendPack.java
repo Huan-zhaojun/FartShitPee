@@ -39,16 +39,16 @@ public class drainSendPack implements IModPack {
         context.enqueueWork(() -> {
             ServerPlayerEntity player = context.getSender();
             if (player != null && !player.world.isRemote) {
-                if (!player.isCrouching() && !player.isCreative()) {//撒尿
+                if (!player.isCrouching() && !player.isCreative() && !player.isSpectator()) {//撒尿
                     LazyOptional<drainCapability> cap = player.getCapability(fart_shit_pee.Drain_Capability);
                     cap.ifPresent(c -> {
                         if (c.urineLevel > 0) {
                             c.setPee(!c.pee);//控制撒尿的开始或终止
                             if (!c.pee) //终止绘制
-                                Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new peeEnd_SendPack());
+                                Network.INSTANCE.send(PacketDistributor.ALL.noArg(), new peeEnd_SendPack());
                         }
                     });
-                } else if (!player.isCreative()) {//拉屎
+                } else if (!player.isCreative() && !player.isSpectator()) {//拉屎
                     LazyOptional<drainCapability> cap = player.getCapability(fart_shit_pee.Drain_Capability);
                     cap.ifPresent(c -> {
                         World world = player.world;

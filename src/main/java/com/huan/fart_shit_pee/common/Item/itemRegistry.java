@@ -17,7 +17,7 @@ public class itemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, fart_shit_pee.MOD_ID);
     public static RegistryObject<Item> urineFluidBucket = ITEMS.register("urine_fluid_bucket",
             () -> new BucketItem(FluidRegistry.urineFluid, new Item.Properties()
-                    .group(ItemGroup.MISC).containerItem(BUCKET)));
+                    .group(ItemGroup.MISC).containerItem(BUCKET).maxStackSize(1)));
     public static RegistryObject<Item> shitBlock = ITEMS.register("shit_block",
             () -> new BlockItem(blockRegistry.shitBlock.get(),
                     new Item.Properties().food(new Food.Builder().hunger(2).saturation(1).setAlwaysEdible().build())

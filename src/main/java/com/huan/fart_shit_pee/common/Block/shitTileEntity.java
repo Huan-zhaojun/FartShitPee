@@ -1,5 +1,6 @@
 package com.huan.fart_shit_pee.common.Block;
 
+import com.huan.fart_shit_pee.api.Config;
 import com.huan.fart_shit_pee.common.TileEntity.TileEntityTypeRegistry;
 import com.huan.fart_shit_pee.common.customDamageSource;
 import net.minecraft.block.BlockState;
@@ -62,24 +63,27 @@ public class shitTileEntity extends TileEntity implements ITickableTileEntity {
     public void tick() {
         if (world != null && !world.isRemote) {
             List<Entity> entityList = world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos).grow(radius));
-            for (Entity entity : entityList) {
-                if (tickCount % 20 == 0) {
-                    if (uuid != null && !entity.equals(world.getPlayerByUuid(uuid))) {
-                        customDamageSource.smellyShitDamageSource smellyShit = (customDamageSource.smellyShitDamageSource) new customDamageSource.smellyShitDamageSource("smellyShit").setPlayer(world.getPlayerByUuid(uuid)).setDamageBypassesArmor();
-                        entity.attackEntityFrom(smellyShit, 2);
-                    } else if (uuid != null && entity.equals(world.getPlayerByUuid(uuid)) && tickCount <= 300)
-                        ;
-                    else if (uuid != null && entity.equals(world.getPlayerByUuid(uuid)) && tickCount > 300) {
-                        customDamageSource.smellyShitDamageSource smellyShit = (customDamageSource.smellyShitDamageSource) new customDamageSource.smellyShitDamageSource("smellyShit").setPlayer(world.getPlayerByUuid(uuid)).setDamageBypassesArmor();
-                        entity.attackEntityFrom(smellyShit, 2);
-                    } else if (entity instanceof PlayerEntity) {
-                        entity.attackEntityFrom(customDamageSource.smellyShit_DamageSource1, 2);
+            if (Config.shit_isDamage.get()) {
+                for (Entity entity : entityList) {
+                    if (tickCount % Config.shit_tick.get() == 0) {
+                        float amount = Config.shit_damage.get().floatValue();
+                        if (uuid != null && !entity.equals(world.getPlayerByUuid(uuid))) {
+                            customDamageSource.smellyShitDamageSource smellyShit = (customDamageSource.smellyShitDamageSource) new customDamageSource.smellyShitDamageSource("smellyShit").setPlayer(world.getPlayerByUuid(uuid)).setDamageBypassesArmor();
+                            entity.attackEntityFrom(smellyShit, amount);
+                        } else if (uuid != null && entity.equals(world.getPlayerByUuid(uuid)) && tickCount <= 300)
+                            ;
+                        else if (uuid != null && entity.equals(world.getPlayerByUuid(uuid)) && tickCount > 300) {
+                            customDamageSource.smellyShitDamageSource smellyShit = (customDamageSource.smellyShitDamageSource) new customDamageSource.smellyShitDamageSource("smellyShit").setPlayer(world.getPlayerByUuid(uuid)).setDamageBypassesArmor();
+                            entity.attackEntityFrom(smellyShit, amount);
+                        } else if (entity instanceof PlayerEntity) {
+                            entity.attackEntityFrom(customDamageSource.smellyShit_DamageSource1, amount);
+                        }
                     }
-                }
-                if (!(entity instanceof PlayerEntity)) {
-                    float amount = 2;
-                    if (entity instanceof LivingEntity) amount = ((LivingEntity) entity).getMaxHealth() / 4.0f;
-                    entity.attackEntityFrom(customDamageSource.smellyShit_DamageSource1, amount);
+                    if (!(entity instanceof PlayerEntity)) {
+                        float amount = 2;
+                        if (entity instanceof LivingEntity) amount = ((LivingEntity) entity).getMaxHealth() / 4.0f;
+                        entity.attackEntityFrom(customDamageSource.smellyShit_DamageSource1, amount);
+                    }
                 }
             }
             //world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);

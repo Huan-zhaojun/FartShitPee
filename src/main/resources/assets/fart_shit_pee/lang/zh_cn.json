@@ -27,5 +27,13 @@
   "up.pee": "抛升尿弹道",
   "down.pee": "压低尿弹道",
 
-  "sound.fart_shit_pee.fart": "放屁"
+  "sound.fart_shit_pee.fart": "放屁",
+
+  "commands.fsp.setUrineLevel_Max": "成功设置了最大尿液值",
+  "commands.fsp.setUrineLevel": "成功设置了尿液值",
+  "commands.fsp.setShitLevel_Max": "成功设置了最大屎值",
+  "commands.fsp.setShitLevel": "成功设置了屎值",
+  "commands.fsp.setFlatusLevel": "成功设置了屁值",
+  "commands.fsp.setPee": "成功设置了是否撒尿",
+  "commands.fsp.setParabola": "成功设置了撒尿抛物线"
 }

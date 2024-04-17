@@ -15,7 +15,7 @@ public class HudClientEvent {
     @SubscribeEvent
     public static void onOverlayRender(RenderGameOverlayEvent event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) return;
-        if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.abilities.isCreativeMode) {
+        if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.abilities.isCreativeMode && !Minecraft.getInstance().player.isSpectator()) {
             Hub hub = new Hub(event.getMatrixStack());
             hub.render(urineLevel_Max , shitLevel_Max,  urineLevel,  shitLevel, flatusLevel);
         }
