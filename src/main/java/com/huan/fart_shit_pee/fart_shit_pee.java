@@ -55,7 +55,6 @@ public class fart_shit_pee {
 
     public void setup(final FMLCommonSetupEvent event) {
         if (ModList.get().getModFileById("hunger_plus") != null) modExist("hunger_plus");
-        modExist("hunger_plus");
         //注册能力
         CapabilityManager.INSTANCE.register(
                 drainCapability.class,

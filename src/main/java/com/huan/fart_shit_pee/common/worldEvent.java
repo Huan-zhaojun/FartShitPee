@@ -8,9 +8,9 @@ import com.huan.fart_shit_pee.network.Client.urine_lineSendPack;
 import com.huan.fart_shit_pee.network.Network;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -20,14 +20,17 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = fart_shit_pee.MOD_ID)
 public class worldEvent {
+    @ObjectHolder("ifscience:furnace_tnt")
+    public static EntityType<? extends TNTEntity> furnaceTNT;
+
     private final static HashMap<UUID, Double> list = new HashMap<>();//用于记录玩家当前尿射线延伸多少部分
 
     @SubscribeEvent
@@ -81,8 +84,9 @@ public class worldEvent {
                             double Z = ((x - leftPoint) * Math.cos(radianYaw)) + playerVec.z;
                             List<Entity> entityList = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(new BlockPos(X, Y, Z)).grow(1));
                             for (Entity entity : entityList) {
-                                entity.attackEntityFrom(DamageSource.IN_WALL,2f);
-                                entity.setMotion(-Math.sin(radianYaw) * 3, 1, Math.cos(radianYaw) * 3);
+                                if (furnaceTNT != null && entity.getType().equals(furnaceTNT)) continue;
+                                entity.attackEntityFrom(DamageSource.IN_WALL, 2f);
+                                entity.setMotion(-Math.sin(radianYaw) * 3, 1, Math.cos(radianYaw) * 3);//击飞生物
                             }
                         }
 

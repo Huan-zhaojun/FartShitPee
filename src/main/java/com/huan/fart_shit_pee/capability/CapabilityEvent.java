@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -68,17 +69,23 @@ public class CapabilityEvent {
 
     @SubscribeEvent//能力保留
     public static void onPlayerCloned(PlayerEvent.Clone event) {
-        if (!event.isWasDeath()) {//死亡不保存
-            LazyOptional<drainCapability> originalCap = event.getOriginal().getCapability(fart_shit_pee.Drain_Capability);
-            LazyOptional<drainCapability> nowCap = event.getPlayer().getCapability(fart_shit_pee.Drain_Capability);
-            if (originalCap.isPresent() && nowCap.isPresent()) {
-                nowCap.ifPresent((cap) -> {
-                    originalCap.ifPresent((oldCap) -> cap.deserializeNBT(oldCap.serializeNBT()));
-                });
+        World world = event.getPlayer().world;
+        if (!world.isRemote) {
+            if (!event.isWasDeath()) {//死亡不保存
+                LazyOptional<drainCapability> originalCap = event.getOriginal().getCapability(fart_shit_pee.Drain_Capability);
+                LazyOptional<drainCapability> nowCap = event.getPlayer().getCapability(fart_shit_pee.Drain_Capability);
+                if (originalCap.isPresent() && nowCap.isPresent()) {
+                    nowCap.ifPresent((cap) -> originalCap.ifPresent((oldCap) -> cap.deserializeNBT(oldCap.serializeNBT())));
+                }
             }
-        } else {
-            //终止绘制
-            Network.INSTANCE.send(PacketDistributor.ALL.noArg(), new peeEnd_SendPack());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event) {
+        World world = event.getPlayer().world;
+        if (!world.isRemote) {
+            Network.INSTANCE.send(PacketDistributor.ALL.noArg(), new peeEnd_SendPack());//终止绘制
         }
     }
 
