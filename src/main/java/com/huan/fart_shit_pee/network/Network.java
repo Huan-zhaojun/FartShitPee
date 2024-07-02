@@ -1,10 +1,7 @@
 package com.huan.fart_shit_pee.network;
 
 import com.huan.fart_shit_pee.fart_shit_pee;
-import com.huan.fart_shit_pee.network.Client.entityMotionSendPack;
-import com.huan.fart_shit_pee.network.Client.hubSendPack;
-import com.huan.fart_shit_pee.network.Client.peeEnd_SendPack;
-import com.huan.fart_shit_pee.network.Client.urine_lineSendPack;
+import com.huan.fart_shit_pee.network.Client.*;
 import com.huan.fart_shit_pee.network.Server.drainSendPack;
 import com.huan.fart_shit_pee.network.Server.fartSendPack;
 import com.huan.fart_shit_pee.network.Server.upDown_urineSendPack;
@@ -32,5 +29,6 @@ public class Network {
         INSTANCE.registerMessage(nextID(), fartSendPack.class, fartSendPack::toBytes, fartSendPack::new, fartSendPack::handler);
         INSTANCE.registerMessage(nextID(), upDown_urineSendPack.class, upDown_urineSendPack::toBytes, upDown_urineSendPack::new, upDown_urineSendPack::handler);
         INSTANCE.registerMessage(nextID(), entityMotionSendPack.class, entityMotionSendPack::toBytes, entityMotionSendPack::new, entityMotionSendPack::handler);
+        INSTANCE.registerMessage(nextID(), urineTileParticle_Pack.class, urineTileParticle_Pack::toBytes, urineTileParticle_Pack::new, urineTileParticle_Pack::handler);
     }
 }

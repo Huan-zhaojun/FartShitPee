@@ -2,6 +2,9 @@ package com.huan.fart_shit_pee.common.Fluid;
 
 import com.huan.fart_shit_pee.common.TileEntity.TileEntityTypeRegistry;
 import com.huan.fart_shit_pee.common.Block.blockRegistry;
+import com.huan.fart_shit_pee.network.Client.entityMotionSendPack;
+import com.huan.fart_shit_pee.network.Client.urineTileParticle_Pack;
+import com.huan.fart_shit_pee.network.Network;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -10,6 +13,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.Random;
 
@@ -46,14 +50,7 @@ public class urineFluidTileEntity extends TileEntity implements ITickableTileEnt
                 if (world.isDaytime() && world.isAirBlock(abovePos) && tickCount > 30) {
                     int i = random.nextInt(100) + 1;
                     if (i <= 4) {
-                        if (Minecraft.getInstance().world != null) {
-                            Minecraft.getInstance().world.addParticle(ParticleTypes.CLOUD,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,0,0.05,0);
-                            Minecraft.getInstance().world.addParticle(ParticleTypes.CLOUD,pos.getX()+0.3,pos.getY()+0.3,pos.getZ()+0.5,0,0.05,0);
-                            Minecraft.getInstance().world.addParticle(ParticleTypes.CLOUD,pos.getX()+0.3,pos.getY()+0.7,pos.getZ()+0.5,0,0.05,0);
-                            Minecraft.getInstance().world.addParticle(ParticleTypes.CLOUD,pos.getX()+0.7,pos.getY()+0.3,pos.getZ()+0.5,0,0.05,0);
-                            Minecraft.getInstance().world.addParticle(ParticleTypes.CLOUD,pos.getX()+0.7,pos.getY()+0.7,pos.getZ()+0.5,0,0.05,0);
-
-                        }
+                        Network.INSTANCE.send(PacketDistributor.ALL.noArg(), new urineTileParticle_Pack(pos));
                         world.setBlockState(pos, Blocks.AIR.getDefaultState());
                     }
                 } else if (world.isDaytime() && tickCount > 100) {
